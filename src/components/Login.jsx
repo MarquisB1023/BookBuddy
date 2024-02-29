@@ -13,7 +13,7 @@ function Login ({token , setFunction }) {
     async function handleSubmit(event) {
         event.preventDefault();
      try {
-        const resposne = await fetch(
+        const response = await fetch(
             `https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/users/login`,{
             method : "POST",
             headers: {
@@ -25,7 +25,7 @@ function Login ({token , setFunction }) {
                 Authorization: `Bearer ${token}`,
             })
         });
-        const result = await Response.json();
+        const result = await response.json();
         console.log(result);
 
      }catch(error) {

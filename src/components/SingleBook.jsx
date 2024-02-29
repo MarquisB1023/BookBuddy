@@ -4,12 +4,9 @@ Fetch the book data from the provided API. You may consider conditionally render
 import {useState} from 'react'
 import {link } from 'react-router-dom'
 
-function SingleBook ({ }) {
+async function SingleBook () {
 
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-     try {
+ try {
         const response = await fetch(
             'https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/1',{
 
@@ -24,7 +21,7 @@ function SingleBook ({ }) {
      }catch(error) {
         console.error(error);
      }
-}
+
 
      return (
    <>
