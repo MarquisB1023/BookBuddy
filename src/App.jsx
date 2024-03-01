@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useState, useEffect } from "react";
-import "./app.css";
+import "./index.css";
 import bookLogo from "./assets/books.png";
 import Account from "./components/Account";
-import Books from "./api";
+import Books from "./components/Books";
 import Login from "./components/Login";
 import Navigations from "./components/Navigations";
 import Register from "./components/Register";
@@ -32,12 +31,16 @@ function App() {
 
   return (
     <>
+      <div id="navbar">
+        <Navigations> </Navigations>
+      </div>
+
       <h1>
         <img id="logo-image" src={bookLogo} />
         Library App
       </h1>
 
-      <Navigations> </Navigations>
+      <singleBook singlebook={singleBook} />
       <table>
         <thead>
           <tr>
@@ -51,25 +54,14 @@ function App() {
         </thead>
         <tbody>
           {books.map((book) => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.description}</td>
-              <td>{book.coverimage}</td>
-              <td>{book.available}</td>
-              <td>
-                <button onClick={() => (handleClick = singleBook.id)}>
-                  View Info
-                </button>
-              </td>
-              <ul open={singleBook.id}>
-                <li>{book.title}</li>
-                <li>{book.author}</li>
-                <li>{book.description}</li>
-                <li>{book.coverimage}</li>
-                <li>{book.available}</li>
-              </ul>
-            </tr>
+            <Books
+              key={book.id}
+              title={book.title}
+              author={book.author}
+              description={book.description}
+              coverimage={book.coverimage}
+              available={book.available}
+            />
           ))}
         </tbody>
       </table>

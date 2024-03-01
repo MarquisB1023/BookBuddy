@@ -9,7 +9,16 @@ import Register from './components/Register'
 import Account from './components/Account'
 
 function Navigations (){
-
+return(
+ 
+    <>
+    <div id ="container">
+        <Login></Login>
+        <Register></Register>
+        <Account></Account>
+    </div>
+    </>
+)
 }
 
 export default Navigations

@@ -4,6 +4,22 @@ Fetch the book data from the provided API. You may consider conditionally render
 import {useState} from 'react'
 import {link } from 'react-router-dom'
 
+
+function SingleBookID(singleBook){
+
+    return(  
+    
+    <ul open={singleBook.id}>
+        <li>{singleBook.title}</li>
+        <li>{singleBook.author}</li>
+        <li>{singleBook.description}</li>
+        <li><img src ={singleBook.coverimage} alt ={singleBook.title}/></li>
+        <li>{singleBook.available}</li>
+      </ul>);
+
+  
+}
+
 async function SingleBook () {
 
  try {
@@ -59,5 +75,6 @@ async function Bookid () {
 
 };
 
+SingleBookID
  Bookid ();
 export default SingleBook

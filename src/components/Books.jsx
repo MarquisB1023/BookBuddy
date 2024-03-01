@@ -2,98 +2,90 @@
  Fetch the book data from the provided API. Users should be able to click on an individual book to
   navigate to the SingleBook component and view its details. */
 
-import {useState} from 'react'
-import {link } from 'react-router-dom'
+import react, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
+function Books() {
+  const [books, setBooks] = useState([]);
+  const history = useHistory();
 
-
-async function Books(books,setBooks) {
-
-
-     try {
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
         const response = await fetch(
-            'https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/users/books',{
-           
+          "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/users/books",
+          {
             headers: {
-                'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
-            
-        });
-        const result = await response.json();
-        console.log(result);
-
-     }catch(error) {
+          }
+        );
+        const data = await response.json();
+        setBooks(data);
+      } catch (error) {
         console.error(error);
-     }
+      }
+    }
+
+    fetchBooks();
+  }, []);
+
+  const handleBookClick = (bookId) => {
+    history.push(`/books/${bookId}`);
+  };
+  return (
+    <>
+      <div className="Books">
+        <tr key={book.id}>
+          <td>{book.title}</td>
+          <td>{book.author}</td>
+          <td>{book.description}</td>
+          <td>
+            <img src={book.coverimage} alt={book.title} />
+          </td>
+          <td>{book.available}</td>
+          <td>
+            <button onClick={() => (onClick = singleBook.id)}>View Info</button>
+          </td>
+        </tr>
+      </div>
+    </>
+  );
 }
 
-     return (
-   <>
- <div className="Books">
+async function Reservations() {
+  try {
+    const response = await fetch(
+      "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-{searchedBooks && Books.map(Books=> <img src ={Books.imageURL} alt=""/>)}
+async function deleteReservations() {
+  try {
+    const response = await fetch(
+      "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations/6",
+      {
+        ethod: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-</div>
-   </>
-     )
-
-
-     async function Reservations() {
-
-
-        try {
-           const response = await fetch(
-               'https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations',{
-              
-               headers: {
-                   'Content-Type': 'application/json',
-               },
-               
-           });
-           const result = await response.json();
-           console.log(result);
-   
-        }catch(error) {
-           console.error(error);
-        }
-   }
-   
-        return (
-      <>
-    <div className="Reservations">
-   
-   </div>
-      </>
-        )
-
-
-     async function Reservations() {
-
-
-        try {
-           const response = await fetch(
-               'https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations/6',{
-              ethod: "DELETE",
-               headers: {
-                   'Content-Type': 'application/json',
-               },
-               
-           });
-           const result = await response.json();
-           console.log(result);
-   
-        }catch(error) {
-           console.error(error);
-        }
-   }
-   
-        return (
-      <>
-
-      </>
-        )
-    
-
-Reservations
-
-export default Books
+export default Books;
