@@ -1,24 +1,33 @@
-/* TODO - add your code to create a functional React component that renders a navigation bar for 
-the different views in your single page application. You may consider conditionally rendering some options - f
-or example 'Login' should be available if someone has not logged in yet. */
 
-import {useState} from 'react'
-import {link } from 'react-router-dom'
-import Login from './components/Login'
-import Register from './components/Register'
-import Account from './components/Account'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import Account from "./Account";
+import Home from "./Home";
 
-function Navigations (){
-return(
- 
+function Navigations() {
+  return (
     <>
-    <div id ="container">
-        <Login></Login>
-        <Register></Register>
-        <Account></Account>
-    </div>
+      <div id="container">
+        <nav>
+          <Link to="/Home">Home</Link>
+          <Link to="/Account">Account</Link>
+          <Link to="/Login">Account</Link>
+          <Link to="/Register">Register</Link>
+        </nav>
+
+        <div id="main-section">
+          <Routes>
+            <Route path="/Home" element={<Home />} />
+            <Route path="/Account" element={<Account />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+          </Routes>
+        </div>
+      </div>
     </>
-)
+  );
 }
 
-export default Navigations
+export default Navigations;
