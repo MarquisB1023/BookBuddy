@@ -1,16 +1,15 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Books() {
   const [books, setBooks] = useState([]);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchBooks() {
       try {
         const response = await fetch(
-          "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/users/books",
+          "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books",
           {
             headers: {
               "Content-Type": "application/json",
@@ -18,7 +17,8 @@ function Books() {
           }
         );
         const data = await response.json();
-        setBooks(data);
+        console.log(data.books);
+        setBooks(data.books);
       } catch (error) {
         console.error(error);
       }
@@ -33,7 +33,7 @@ function Books() {
   async function Reservations() {
     try {
       const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations",
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/:bookid",
         {
           headers: {
             "Content-Type": "application/json",
@@ -46,13 +46,13 @@ function Books() {
       console.error(error);
     }
   }
-  
+
   async function deleteReservations() {
     try {
       const response = await fetch(
         "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations/6",
         {
-          ethod: "DELETE",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
@@ -66,49 +66,42 @@ function Books() {
   }
   return (
     <>
-      {/* <div className="Books">
-        <tr key={book.id}>
-          <td>{book.title}</td>
-          <td>{book.author}</td>
-          <td>{book.description}</td>
-          <td>
-            <img src={book.coverimage} alt={book.title} />
-          </td>
-          <td>{book.available}</td>
-          <td>
-            <button onClick={() => (onClick = singleBook.id)}>View Info</button>
-          </td>
-        </tr>
-      </div> */}
-          <table>
+      <table>
         <thead>
           <tr>
-            <th>id</th>
-            <th>title</th>
-            <th>author</th>
-            <th>decription</th>
-            <th>coverimage</th>
-            <th>available</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>Cover Image</th>
+            <th>Available</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {books.map((book) => (
-            // <Books
-            //   key={book.id}
-            //   title={book.title}
-            //   author={book.author}
-            //   description={book.description}
-            //   coverimage={book.coverimage}
-            //   available={book.available}
-            // />
-            <p>{book.title}</p>
+            <tr key={book.id}>
+              <td>{book.title}</td>
+              <td>{book.author}</td>
+              <td>{book.description}</td>
+              <td>
+                <img src={book.coverimage} alt={book.title} />
+              </td>
+              <td>{book.available}</td>
+              <td>
+                <button onClick={() => handleBookClick(book.id)}>
+                  View Info
+                </button>
+                <button onClick={Reservations}>Reserve Book</button>
+                <button onClick={deleteReservations}>
+                  Delete Reservations
+                </button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
     </>
   );
 }
-
-
 
 export default Books;

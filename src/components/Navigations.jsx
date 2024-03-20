@@ -1,6 +1,5 @@
-
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Route, Routes, Link } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Account from "./Account";
@@ -13,7 +12,7 @@ function Navigations() {
         <nav>
           <Link to="/Home">Home</Link>
           <Link to="/Account">Account</Link>
-          <Link to="/Login">Account</Link>
+          <Link to="/Login">Login</Link>
           <Link to="/Register">Register</Link>
         </nav>
 

@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
 import "./index.css";
+import Home from "./components/Home";
 import bookLogo from "./assets/books.png";
 import Account from "./components/Account";
 import Books from "./components/Books";
@@ -7,6 +9,7 @@ import Login from "./components/Login";
 import Navigations from "./components/Navigations";
 import Register from "./components/Register";
 import SingleBook from "./components/SingleBook";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -14,19 +17,16 @@ function App() {
   return (
     <>
       <div id="navbar">
-        <Navigations> </Navigations>
+        <Navigations />
       </div>
-
-      <h1>
-        <img id="logo-image" src={bookLogo} />
-        Library App
-      </h1>
-      <Account />
-      <Login />
-      <SingleBook />
-      <Books />
-
-      <Register token={token} setFunction={setToken} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Books" element={<Books />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Account" element={<Account />} />
+      </Routes>
+    
     </>
   );
 }
