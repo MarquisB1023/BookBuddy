@@ -1,26 +1,22 @@
-import React, { useState } from "react";
-// import { login } from "./API";
-import { Link } from "react-router-dom";
-
-const [Email, setEmail] = useState("");
-const [Password, setPassword] = useState("");
-const [error, setError] = useState("");
+import { useState } from "react";
 
 function Login({ token, setFunction }) {
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   async function handleSubmit(event) {
     event.preventDefault();
     try {
       const response = await fetch(
-        `https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/users/login`,
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/login",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringyify({
-            email: "ssmith@xample.com",
-            password: "sam345",
-            Authorization: `Bearer ${token}`,
+          body: JSON.stringify({
+            email: Email,
+            password: Password,
           }),
         }
       );
@@ -39,7 +35,7 @@ function Login({ token, setFunction }) {
         <label>
           Email:
           <input
-            email="Email"
+            name="Email"
             value={Email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -50,7 +46,7 @@ function Login({ token, setFunction }) {
         <label>
           Password:{""}
           <input
-            passwordl="Password"
+            name="Password"
             value={Password}
             onChange={(e) => setPassword(e.target.value)}
           />

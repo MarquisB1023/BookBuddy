@@ -1,34 +1,26 @@
-import react, {useState} from "react";
+import React from "react";
+import Navigations from "./Navigations";
+import Account from "./Account";
+import Login from "./Login";
+import SingleBook from "./SingleBook";
+import Books from "./Books";
+import Register from "./Register";
+import bookLogo from "../assets/books.png";
 
-
-function Home() {
-    return (
-        <>
-        <div id="navbar"><Navigations> </Navigations></div>
-  
-        <h1>
-          <img id="logo-image" src={bookLogo} />
-          Library App
-        </h1>
-  
-        <Account />
-     <Login/>
-      <SingleBook />
-      <Books />
-
-      <Register token={token} setFunction={setToken} />
-        <Register token={token} setFunction={setToken} />
-
-
-        <div class="home"></div>
-
-        <h1>
-        <img id="logo-image" src={bookLogo} />
+function Home({ token, setToken }) {
+  return (
+    <>
+    
+      <h1>
+        <img id="logo-image" src={bookLogo} alt="Library App Logo" />
         Library App
       </h1>
-      </>
-      
-    );
+
+   
+      <Books />
+    
+    </>
+  );
 }
 
-export default Home 
+export default Home;
