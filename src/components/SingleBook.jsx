@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-async function SingleBook() {
+async function SingleBook({ token, setToken }) {
   const [singleBook, setSingleBook] = useState({});
 
   useEffect(() => {
@@ -13,15 +13,18 @@ async function SingleBook() {
   async function handleClick() {
     try {
       const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/1",
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/:bookId",
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       const result = await response.json();
       setSingleBook(result.book);
+      const token = result.token;
+      setToken(token);
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +33,7 @@ async function SingleBook() {
   async function handleBookid() {
     try {
       const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/1",
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/:bookId",
         {
           method: "PATCH",
           body: JSON.stringify({
@@ -44,6 +47,49 @@ async function SingleBook() {
       console.error(error);
     }
   }
+
+  const handleBookClick = (bookId) => {
+    navigate(`/books/${bookId}`);
+  };
+  async function Reservations() {
+   
+    try {
+      const response = await fetch(
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function deleteReservations() {
+    
+    try {
+      const response = await fetch(
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations/6",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       {singleBook && (
@@ -56,6 +102,18 @@ async function SingleBook() {
           </li>
           <li>{singleBook.available}</li>
           <button onClick={handleBookid}>Update Availability</button>
+          <td>
+                <button onClick={() => handleBookClick(book.id)}>
+                  View Info
+                </button>
+
+                <button onClick={() => Reservations(book.id)}>
+                  Reserve Book
+                </button>
+                <button onClick={() => deleteReservations(book.id)}>
+                  Delete Reservations
+                </button>
+              </td>
         </ul>
       )}
     </div>

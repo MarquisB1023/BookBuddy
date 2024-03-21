@@ -18,7 +18,7 @@ function Navigations({ token, setToken }) {
 
         <div id="main-section">
           <Routes>
-            <Route path="/Home" element={<Home />} />
+            <Route path="/Home/*" element={<Home />} />
             <Route path="/Account" element={<Account token={token} />} />
             <Route
               path="/Login"

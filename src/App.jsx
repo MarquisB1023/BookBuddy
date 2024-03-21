@@ -17,10 +17,10 @@ function App() {
   return (
     <>
       <div id="navbar">
-        <Navigations />
+        <Navigations token={token} setToken={setToken} />
       </div>
       <Routes>
-      <Route path="/home" element={<Home />} />
+        <Route path="/home/*" element={<Home />} />
         <Route path="\" element={<Home />} />
         <Route
           path="/Login"
