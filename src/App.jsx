@@ -20,13 +20,22 @@ function App() {
         <Navigations />
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
+      <Route path="/home" element={<Home />} />
+        <Route path="\" element={<Home />} />
+        <Route
+          path="/Login"
+          element={<Login token={token} setToken={setToken} />}
+        />
         <Route path="/Books" element={<Books />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/Account" element={<Account />} />
+        <Route
+          path="/Register"
+          element={<Register token={token} setFunction={setToken} />}
+        />
+        <Route
+          path="/Account"
+          element={<Account token={token} setFunction={setToken} />}
+        />
       </Routes>
-    
     </>
   );
 }

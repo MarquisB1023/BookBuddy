@@ -5,7 +5,7 @@ import Register from "./Register";
 import Account from "./Account";
 import Home from "./Home";
 
-function Navigations() {
+function Navigations({ token, setToken }) {
   return (
     <>
       <div id="container">
@@ -19,9 +19,15 @@ function Navigations() {
         <div id="main-section">
           <Routes>
             <Route path="/Home" element={<Home />} />
-            <Route path="/Account" element={<Account />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
+            <Route path="/Account" element={<Account token={token} />} />
+            <Route
+              path="/Login"
+              element={<Login token={token} setFunction={setToken} />}
+            />
+            <Route
+              path="/Register"
+              element={<Register token={token} setFunction={setToken} />}
+            />
           </Routes>
         </div>
       </div>

@@ -30,16 +30,18 @@ function Books() {
   const handleBookClick = (bookId) => {
     navigate(`/books/${bookId}`);
   };
-  async function Reservations() {
+  async function Reservations(bookId) {
+    navigate(`/books/${bookId}`);
     try {
       const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/:bookid",
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations",
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+
       const result = await response.json();
       console.log(result);
     } catch (error) {
@@ -47,10 +49,11 @@ function Books() {
     }
   }
 
-  async function deleteReservations() {
+  async function deleteReservations(bookId) {
+    navigate(`/books/${bookId}`);
     try {
       const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com//api/reservations/6",
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations/6",
         {
           method: "DELETE",
           headers: {
@@ -91,8 +94,11 @@ function Books() {
                 <button onClick={() => handleBookClick(book.id)}>
                   View Info
                 </button>
-                <button onClick={Reservations}>Reserve Book</button>
-                <button onClick={deleteReservations}>
+
+                <button onClick={() => Reservations(book.id)}>
+                  Reserve Book
+                </button>
+                <button onClick={() => deleteReservations(book.id)}>
                   Delete Reservations
                 </button>
               </td>

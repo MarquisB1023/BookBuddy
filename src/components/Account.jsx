@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 function Account({ token }) {
+  const [accounts, setAccounts] = useState(null);
   const [error, setError] = useState();
   async function handleClick(event) {
     event.preventDefault();
@@ -12,24 +13,38 @@ function Account({ token }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer ${token}",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       const result = await response.json();
-      console.log(result);
+      setAccounts(result);
     } catch (error) {
       console.error(error);
     }
   }
   return (
     <>
-      {!token && <Navigate to="/" replace={true} />}
+      {!token && <Navigate to="/home" replace={true} />}
       {error && <p>{error}</p>}
-      <button onClick={handleClick}>
-        {" "}
-        <h2>My Account</h2>
-      </button>
+      {accounts && (
+        <div>
+          <ul>
+            <li>First Name: {accounts.firstname}</li>
+            <li>Last Name: {accounts.lastname}</li>
+            <li>Email: {accounts.email}</li>
+            <li>
+              Books:
+              <ul>
+                {accounts.books.map((book) => (
+                  <li key={book.id}>{book.title}</li>
+                ))}
+              </ul>
+            </li>
+          </ul>
+          <button onClick={handleClick}>My Account</button>
+        </div>
+      )}
     </>
   );
 }
