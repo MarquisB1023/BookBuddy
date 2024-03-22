@@ -25,7 +25,7 @@ function Account({ token }) {
   }
   return (
     <>
-      {!token && <Navigate to="/home/*" replace={true} />}
+      {!token && <Navigate to="/" replace={true} />}
       {error && <p>{error}</p>}
       {accounts && (
         <div>

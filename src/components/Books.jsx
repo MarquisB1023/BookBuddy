@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import SingleBook from "./SingleBook";
 
 function Books({ token }) {
   const [books, setBooks] = useState([]);
@@ -19,7 +17,6 @@ function Books({ token }) {
           }
         );
         const data = await response.json();
-        console.log(data.books);
         setBooks(data.books);
       } catch (error) {
         console.error(error);
@@ -35,40 +32,26 @@ function Books({ token }) {
 
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Description</th>
-            <th>Cover Image</th>
-            <th>Available</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((book) => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.description}</td>
-              <td>
-                <img src={book.coverimage} alt={book.title} />
-              </td>
-              <td>{book.available}</td>
-              <button onClick={() => handleBookClick(book.id)}>
-                View Info
-              </button>
-              <Routes>
-                <Route
-                  path="./books/bookId"
-                  element={<SingleBook token={token} />}
+      <div className="books-container">
+        {books &&
+          books.map((book) => {
+            return (
+              <div key={book.id} className="book-container">
+                <p className="book-title">{book.title}</p>
+                <img
+                  className="book-cover"
+                  src={book.coverimage}
+                  alt={book.title}
                 />
-              </Routes>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <p className="book-author">{book.author}</p>
+                <p>{book.available}</p>
+                <button onClick={() => handleBookClick(book.id)}>
+                  View Info
+                </button>
+              </div>
+            );
+          })}
+      </div>
     </>
   );
 }

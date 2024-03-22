@@ -1,41 +1,44 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-async function SingleBook({ token, setToken }) {
-  const [singleBook, setSingleBook] = useState({});
+function SingleBook({ token, setToken }) {
+  console.log("Loaded!");
+  const params = useParams();
+  const bookId = params.bookId;
+
+  const [singleBook, setSingleBook] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await handleClick();
-    };
-    fetchData();
+    async function fetchSingleBook() {
+      console.log("downloading book");
+      try {
+        const response = await fetch(
+          `https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/${bookId}`
+        );
+        console.log(response);
+        const result = await response.json();
+        console.log("download: ", result);
+        setSingleBook(result.book);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchSingleBook();
   }, []);
 
-  async function handleClick() {
+  async function checkoutBook() {
     try {
+      
       const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/:bookId",
+        `https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/${bookId}`,
         {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
+            
           },
-        }
-      );
-      const result = await response.json();
-      setSingleBook(result.book);
-      const token = result.token;
-      setToken(token);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function handleBookid() {
-    try {
-      const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/:bookId",
-        {
-          method: "PATCH",
           body: JSON.stringify({
             available: false,
           }),
@@ -48,48 +51,43 @@ async function SingleBook({ token, setToken }) {
     }
   }
 
-  const handleBookClick = (bookId) => {
-    navigate(`/books/${bookId}`);
-  };
-  async function Reservations() {
-   
-    try {
-      const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  //   async function Reservations() {
+  //     try {
+  //       const response = await fetch(
+  //         "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations",
+  //         {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
 
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //       const result = await response.json();
+  //       console.log(result);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
 
-  async function deleteReservations() {
-    
-    try {
-      const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations/6",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
+  //   async function deleteReservations() {
+  //     try {
+  //       const response = await fetch(
+  //         "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations/6",
+  //         {
+  //           method: "DELETE",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+  //       const result = await response.json();
+  //       console.log(result);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  console.log("Single book is: ", singleBook);
   return (
     <div>
       {singleBook && (
@@ -101,19 +99,7 @@ async function SingleBook({ token, setToken }) {
             <img src={singleBook.coverimage} alt={singleBook.title} />
           </li>
           <li>{singleBook.available}</li>
-          <button onClick={handleBookid}>Update Availability</button>
-          <td>
-                <button onClick={() => handleBookClick(book.id)}>
-                  View Info
-                </button>
-
-                <button onClick={() => Reservations(book.id)}>
-                  Reserve Book
-                </button>
-                <button onClick={() => deleteReservations(book.id)}>
-                  Delete Reservations
-                </button>
-              </td>
+          <button onClick={checkoutBook}>Checkout</button>
         </ul>
       )}
     </div>

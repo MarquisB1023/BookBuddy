@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login({token, setToken}) {
+function Login({setToken}) {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -13,6 +13,7 @@ function Login({token, setToken}) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            
           },
           body: JSON.stringify({
             email: Email,
@@ -21,9 +22,9 @@ function Login({token, setToken}) {
         }
       );
       const result = await response.json();
-      console.log("login result ", result);
-    //   const token = result.token;
-    //   setToken(token)
+      
+      const token = result.token;
+      setToken(token)
 
     } catch (error) {
       console.error(error);

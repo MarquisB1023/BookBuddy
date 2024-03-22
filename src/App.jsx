@@ -20,20 +20,23 @@ function App() {
         <Navigations token={token} setToken={setToken} />
       </div>
       <Routes>
-        <Route path="/home/*" element={<Home />} />
-        <Route path="\" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route
           path="/Login"
           element={<Login token={token} setToken={setToken} />}
         />
         <Route path="/Books" element={<Books />} />
         <Route
+          path="/Books/:bookId"
+          element={<SingleBook token={token} setToken={setToken} />}
+        />
+        <Route
           path="/Register"
-          element={<Register token={token} setFunction={setToken} />}
+          element={<Register token={token} setToken={setToken} />}
         />
         <Route
           path="/Account"
-          element={<Account token={token} setFunction={setToken} />}
+          element={<Account token={token} setToken={setToken} />}
         />
       </Routes>
     </>

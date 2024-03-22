@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Register({ token = null, setFunction = () => {} }) {
+function Register({ setToken }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +16,7 @@ function Register({ token = null, setFunction = () => {} }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            
           },
           body: JSON.stringify({
             firstname: firstName,
@@ -26,6 +27,8 @@ function Register({ token = null, setFunction = () => {} }) {
         }
       );
       const result = await response.json();
+      const token =result.token;
+      setToken(token);
       console.log(result);
     } catch (error) {
       console.error(error);

@@ -7,7 +7,7 @@ import Books from "./Books";
 import Register from "./Register";
 import bookLogo from "../assets/books.png";
 
-function Home({ token, setToken }) {
+function Home() {
   return (
     <>
     
