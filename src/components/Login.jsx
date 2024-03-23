@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login({setToken}) {
+function Login({ setToken }) {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -13,7 +13,6 @@ function Login({setToken}) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            
           },
           body: JSON.stringify({
             email: Email,
@@ -21,11 +20,11 @@ function Login({setToken}) {
           }),
         }
       );
+      console.log("response", response);
       const result = await response.json();
-      
-      const token = result.token;
-      setToken(token)
 
+      const token = result.token;
+      setToken(token);
     } catch (error) {
       console.error(error);
     }
@@ -50,7 +49,7 @@ function Login({setToken}) {
         <label>
           Password:{""}
           <input
-             type ="password"
+            type="password"
             name="Password"
             value={Password}
             onChange={(e) => setPassword(e.target.value)}
