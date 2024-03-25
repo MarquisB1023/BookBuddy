@@ -32,6 +32,8 @@ function Login({ setToken }) {
 
   return (
     <>
+    <div className="logincontainer">
+    <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <h2>Email</h2>
         {error && <p>{error}</p>}
@@ -57,6 +59,7 @@ function Login({ setToken }) {
         </label>
         <button type="submit">Login</button>
       </form>
+      </div>
     </>
   );
 }

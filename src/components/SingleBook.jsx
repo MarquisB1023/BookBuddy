@@ -54,9 +54,9 @@ function SingleBook({ token, setToken }) {
     <div>
       {singleBook && (
         <ul>
-          <li>{singleBook.title}</li>
-          <li>{singleBook.author}</li>
-          <li>{singleBook.description}</li>
+          <li className ="booktitle">{singleBook.title}</li>
+          <li className ="bookauthor">{singleBook.author}</li>
+          <li className ="description">{singleBook.description}</li>
           <li>
             <img src={singleBook.coverimage} alt={singleBook.title} />
           </li>

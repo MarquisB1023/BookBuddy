@@ -37,7 +37,9 @@ function Register({ setToken }) {
 
   return (
     <>
-      <h2>Register for a New Account</h2>
+
+      <div className="regcontainer">
+      <h2 >Register for a New Account</h2>
       <form onSubmit={handleSubmit}>
         <h2>First Name</h2>
         {error && <p>{error}</p>}
@@ -82,6 +84,7 @@ function Register({ setToken }) {
         </label>
         <button type="submit">Register</button>
       </form>
+      </div>
     </>
   );
 }

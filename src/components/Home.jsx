@@ -13,7 +13,7 @@ function Home() {
     
       <h1>
         <img id="logo-image" src={bookLogo} alt="Library App Logo" />
-        Library App
+        Book Buddy
       </h1>
 
       {/* <Account token={token} setFunction={setToken} />
